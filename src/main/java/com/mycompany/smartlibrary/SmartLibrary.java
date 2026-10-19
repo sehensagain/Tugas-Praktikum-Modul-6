@@ -101,7 +101,7 @@ public class SmartLibrary {
                         }
                     }
                     case 2 -> {
-                        System.out.println("\n-- Daftar Koleksi di Perpustakaan --");
+                        System.out.println("\n--- Daftar Koleksi di Perpustakaan ---");
                         if (jumlahKoleksi == 0) {
                             System.out.println("Belum ada koleksi yang tersimpan");
                         } else {
@@ -109,10 +109,21 @@ public class SmartLibrary {
                                 System.out.print((i + 1) + ". ");
                                 daftarKoleksi[i].tampilkanInfo();
                                 simulasiPinjam(daftarKoleksi[i]);
-                                System.out.println("");
+                                
+                                daftarKoleksi[i].hitungDendaKeterlambatan();
+                                if (daftarKoleksi[i] instanceof DapatDipinjam) {
+                                    DapatDipinjam itemFisik = (DapatDipinjam) daftarKoleksi[i];
+                                    itemFisik.prosesPinjamFisik();
+                                }
+                                if (daftarKoleksi[i] instanceof DapatDinilai) {
+                                    DapatDinilai itemBisaDinilai = (DapatDinilai) daftarKoleksi[i];
+                                    itemBisaDinilai.beriRating(5);
+                                }
+                                
+                                System.out.println();
                             }
                             
-                            System.out.println("\n Total Koleksi Fisik yang Terdaftar: " + Koleksi.totalKoleksiBerhasilDibuat);
+                            System.out.println("* Total Item Perpustakaan: " + Koleksi.totalKoleksiBerhasilDibuat);
                         }
                         System.out.print("Tekan Enter untuk melanjutkan...");
                         scanner.nextLine();
